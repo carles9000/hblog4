@@ -1,0 +1,116 @@
+<html>
+
+	{{ Css( 'app.css' ) }}
+	{{ View( 'head.view' ) }}
+	
+	<div class='app'>					<!-- Aplicacion -->
+	
+		{{ View( 'nav.view' ) }}
+		{{ View( 'title.view' ) }}
+		
+		<div class="container">			<!-- Container -->		
+		  <div class="row"> 			<!-- Row -->			
+			<div class="col-md-8 ">		<!-- Blog Entries Column -->
+			
+				<h1 class="my-4">My dreams...
+					<small>Posts...</small>
+				</h1>
+			
+			
+
+				<!-- Blog Post -->		
+
+				<?prg
+					#xcommand BLOCKS VIEW <v>[ PARAMS [<v1>] [,<vn>] ] => ;
+						#pragma __cstream |<v>+= InlinePrg( ReplaceBlocks( %s, '<$', "$>" [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )
+				
+				
+					LOCAL hData 	:= PValue(1)
+					LOCAL cHtml 	:= ''
+					LOCAL nI									
+					
+					FOR nI := 1 TO len( hData[ 'rows' ] )
+					
+						hRow := hData[ 'rows' ][nI]											
+					
+						BLOCKS VIEW cHtml PARAMS hRow
+							
+						  <div class="card mb-4">
+						  
+							<form action="{{ Route( 'read' ) }}" method="GET">
+						  
+								<img class="card-img-top" src="<$ AppUrlRepository() + hRow[ 'photo' ] $>"> 
+								
+								<div class="card-body">
+								  <h2 class="card-title"><$ hRow['_recno'] $> - <$ hRow['titulo'] $></h2>
+								  <p class="card-text"><$ Substr( hRow[ 'texto' ],1, 100 )  $></p>
+								  
+								  <button type="submit" class="btn btn-outline-primary" name="recno" value="<$ ltrim(str( hRow[ '_recno'] )) $>" >Read More &nbsp;<i class="fas fa-arrow-circle-right"></i></button>								  
+								  
+								</div>
+								
+								<div class="card-footer text-muted">
+								  Enviado on <$ hRow[ 'fecha' ] $> by <a href="#"><$ hRow[ 'author' ] $></a>								 
+								</div>								
+						  
+							</form>
+							
+						  </div>						
+						ENDTEXT		
+						
+					NEXT
+				  
+					retu cHtml								
+				?>		
+				
+				<div class="text-center">
+					<form action="{{ Route( 'root' ) }}" method="POST">
+						<input type="hidden" name="recno" value="{{ PARAM 1, 'recno' }}">		
+						<button type="submit" class="btn btn-outline-primary" name="action" value="gotop" ><i class="fas fa-step-backward"></i> GoTop</button>
+						<button type="submit" class="btn btn-outline-primary" name="action" value="prev" ><i class="fas fa-backward"></i> Previous</button>
+						<button type="submit" class="btn btn-outline-primary" name="action" value="next" >Next <i class="fas fa-forward"></i></button>
+						<button type="submit" class="btn btn-outline-primary" name="action" value="gobottom" >Older <i class="fas fa-step-forward"></i></button>
+					</form>
+				</div>	
+
+			</div>						<!-- Blog Entries Column -->
+			
+			<div class="col-md-4 ">	<!-- Others... -->			
+
+				<!-- Search Widget -->
+
+				<div class="card my-4">
+					<h5 class="card-header">Search</h5>
+					<div class="card-body">
+						<form action="{{ Route( 'root' ) }}" method="POST">
+							<div class="input-group mb-3">					  
+							  <div class="input-group-append">
+									<input type="text" class="form-control" name="search" placeholder="Search">
+									<button type="submit" class="btn btn-success" name="action" value="buscar"><i class="fas fa-search"></i></button>
+							  </div>
+							</div>				  				  
+						</form>
+					</div>
+				</div>
+
+				<!--	Banner 	-->
+			  
+				<div class="card my-4">
+					<h5 class="card-header">Sponsor</h5>
+					<div class="card-body">
+					  <img class="card-img-top" src="{{ AppUrlImg() + 'harbour.png' }}" alt="Harbour for web">
+					</div>
+				</div>
+				
+											
+			
+			</div>
+			
+		  </div> 						<!-- Row -->
+		</div> 							<!-- Container -->			
+	</div>								<!-- Aplicacion -->	
+	
+	{{ View( 'footer.view' ) }}
+
+		
+</html>

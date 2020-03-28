@@ -1,0 +1,61 @@
+<html>
+
+	{{ Css( 'app.css' ) }}
+	{{ View( 'head.view' ) }}
+	
+	<div class='app'>				<!-- Aplicacion -->
+	
+		{{ View( 'nav.view' ) }}
+		{{ View( 'title.view' ) }}
+		
+		<div class="container">			<!-- Container -->		
+		  <div class="row"> 			<!-- Row -->			
+			<div class="col-md-8 ">	<!-- Blog Entries Column -->	
+
+				<?prg
+					#xcommand BLOCKS VIEW <v>[ PARAMS [<v1>] [,<vn>] ] => ;
+						#pragma __cstream |<v>+= InlinePrg( ReplaceBlocks( %s, '<$', "$>" [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )				
+				
+					LOCAL hRow 	:= PValue(1)
+					LOCAL cHtml 	:= ''
+
+					
+					BLOCKS VIEW cHtml PARAMS hRow
+					
+					  <div class="card mb-4 mycard">
+					  
+						<form action="{{ Route( 'root' ) }}" method="POST">
+					  
+							<img class="card-img-top" src="<$ AppUrlRepository() + hRow[ 'photo' ] $>"> 
+							
+							<div class="card-body">
+							  <h2 class="card-title"><$ hRow['_recno'] $> - <$ hRow['titulo'] $></h2>
+							  <p class="card-text"><$ hRow[ 'texto' ] $></p>
+							  
+  							  <input type="hidden"  name="recno" value="<$ ltrim(str( hRow[ '_recno'] )) $>">
+							  <button type="submit" class="btn btn-outline-primary" name="action" value="go" ><i class="fas fa-arrow-alt-circle-left"></i> Back</button>								  
+							  
+							</div>
+							
+							<div class="card-footer text-muted">
+							  Posted on <$ hRow[ 'fecha' ] $> by <a href="#"><$ hRow[ 'author' ] $></a>								 
+							</div>								
+					  
+						</form>
+						
+					  </div>						
+
+					ENDTEXT						
+
+				  
+					retu cHtml	
+					
+				?>
+
+		  </div> 						<!-- Row -->
+		</div> 							<!-- Container -->			
+	</div>								<!-- Aplicacion -->	
+	
+	{{ View( 'footer.view' ) }}		
+
+</html>

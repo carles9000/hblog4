@@ -1,0 +1,62 @@
+	<footer class="myfooter ">
+
+		<div class="container">
+		
+			<div class="row ">
+				<div class="col-12 col-md-6 col-lg-4 ">
+				
+					<div class="kilimanjaro_part">
+						<h5>About Us</h5>
+						<p>It includes rich features & contents. It's designed & developed based on One Page/ Multi-page Layout,blog themes,world press themes and blogspot. You can use any layout from any demo anywhere.</p>
+						<p>webblogoverflow is completely creative, clean & 100% responsive website. Put your business into next level with Webublogoverflow.</p>
+					</div>
+					
+					<div class="kilimanjaro_part m-top-15">
+						<h5>Social Links</h5>
+						<a href="https://mod-harbour.org/" class="btn btn-outline-success btn-sm btn-socials">Facebook &nbsp;<i class="fab fa-facebook-square"></i></a>
+						<a href="https://mod-harbour.org/" class="btn btn-outline-success btn-sm btn-socials ">Twiteer &nbsp;<i class="fab fa-twitter-square"></i></a>
+						<a href="https://mod-harbour.org/" class="btn btn-outline-success btn-sm btn-socials">Youtube &nbsp;<i class="fab fa-youtube"></i></a>
+						<a href="https://mod-harbour.org/" class="btn btn-outline-success btn-sm btn-socials">Forum &nbsp;<i class="fab fa-forumbee"></i></a>
+
+					</div>					
+					
+				</div>
+				
+				
+				<div class="col-12 col-md-6 col-lg-4">
+				
+					<div class="kilimanjaro_part">
+					
+						<h5>Contact</h5>
+						<div class="kilimanjaro_single_contact_info">
+							<h5>Phone:</h5>
+							<p>+255 789 54 50 40 <br> +2255 766 90 94 00</p>
+						</div>
+						<div class="kilimanjaro_single_contact_info">
+							<h5>Email:</h5>
+							<p>support@webblogoverflow.com <br> luckmoshy@gmail.com</p>
+						</div>
+					</div>
+
+				</div>				
+				
+				
+				<div class="col-12 col-md-6 col-lg-4">
+				
+					<div class="kilimanjaro_part m-top-15">
+						<h5>Important Links</h5>
+						<ul class="mylinks">
+							<li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Terms & Conditions</a></li>
+							<li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>About Licences</a></li>
+							<li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Help & Support</a></li>
+							<li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Careers</a></li>
+							<li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Privacy Policy</a></li>
+							<li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Community & Forum</a></li>
+						</ul>
+					</div>
+				</div>												
+				
+			</div>
+		</div>
+		
+	</footer>

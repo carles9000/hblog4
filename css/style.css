@@ -1,0 +1,53 @@
+body {
+	margin: 0px;
+	background-color: lightgray;
+}
+
+
+.myhead {
+    border: 1px solid red;
+	padding: 5px;
+	background-color: white;
+    margin-bottom: 20px;
+}
+
+.myhead > span {
+	font-size: 25px;
+    color: red;
+}
+
+
+#mylogo {
+    width: 130px;
+    margin-left: 10px;
+    margin-right: 10px;
+	vertical-align: middle;
+}
+
+.mycontent {
+	border: 1px solid green;
+}
+
+.col_entry {
+    border: 1px solid blue;
+    width: 70%;
+    margin-left: 20px;
+    padding: 10px;
+}
+
+.myfooter {
+    border: 1px solid white;
+    padding: 10px;
+	background-color: black;
+	margin-top: 10px;
+}
+
+.col_about {
+    border: 1px solid red;
+    width: 25%;
+    margin-left: 10px;
+    padding: 5px;
+    color: lightgray;	
+}
+
+

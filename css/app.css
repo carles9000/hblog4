@@ -1,0 +1,80 @@
+.mybody {
+
+	.margin-top: 50px;
+
+}
+
+#mylogo {
+	width: 50px;
+    margin-right: 20px;
+}
+
+.myheader {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    min-height: 350px;
+    padding-top: 4rem;
+    padding-bottom: 1rem;
+    color: #fff;
+    background-color: #777;
+}
+
+h1 {
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1.1;
+}
+.myheader h1 a {
+    color: #fff;
+    /*text-decoration: none;*/
+}
+
+.mycard  {
+	margin-top: 20px;
+}
+
+.myfooter {
+
+	background-color: black;
+	color:white;
+	margin-top: 100px;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	
+}
+
+.mylinks {
+	list-style: outside none none !important;
+    border-bottom: 1px solid #333;
+    color: rgba(255,255,255,.5);
+    display: block;
+    font-size: 13px;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+}
+
+.mylinks i {
+	padding-right: 10px;	
+}
+
+.mylinks a { 
+	color:#dfdfdf;
+	text-decoration: none;
+}
+
+.btn-socials {
+	margin-bottom:5px;
+}
+
+.red { border:1px solid red; }
+.blue { border:1px solid blue; }
+.green { border:1px solid green; }
+
