@@ -39,7 +39,7 @@
 						  
 							<form action="{{ Route( 'read' ) }}" method="GET">
 						  
-								<img class="card-img-top" src="<$ AppUrlRepository() + hRow[ 'photo' ] $>"> 
+								<img class="card-img-top" src="<$ AppUrlRepository() + hRow[ 'photo' ] $>">
 								
 								<div class="card-body">
 								  <h2 class="card-title"><$ hRow['_recno'] $> - <$ hRow['titulo'] $></h2>
@@ -65,7 +65,9 @@
 				
 				<div class="text-center">
 					<form action="{{ Route( 'root' ) }}" method="POST">
-						<input type="hidden" name="recno" value="{{ PARAM 1, 'recno' }}">		
+						<input type="hidden" name="first" value="{{ PARAM 1, 'first' }}">		
+						<input type="hidden" name="last" value="{{ PARAM 1, 'last' }}">		
+							
 						<button type="submit" class="btn btn-outline-primary" name="action" value="gotop" ><i class="fas fa-step-backward"></i> GoTop</button>
 						<button type="submit" class="btn btn-outline-primary" name="action" value="prev" ><i class="fas fa-backward"></i> Previous</button>
 						<button type="submit" class="btn btn-outline-primary" name="action" value="next" >Next <i class="fas fa-forward"></i></button>
@@ -101,8 +103,6 @@
 					  <img class="card-img-top" src="{{ AppUrlImg() + 'harbour.png' }}" alt="Harbour for web">
 					</div>
 				</div>
-				
-											
 			
 			</div>
 			

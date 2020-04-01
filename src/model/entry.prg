@@ -1,13 +1,13 @@
+#define MAXROWS 5
 //----------------------------------------------------------------------------//
 
 CLASS EntryModel 
 
-	DATA cAlias
-	DATA nRegGrande init 10000000
+	DATA cAlias	
 
 	METHOD New()             		CONSTRUCTOR
 	
-	METHOD search( cSearch )
+	METHOD Search( cSearch )
 	METHOD Rows( nId, nRows )
 	METHOD GetId( nId )
 	METHOD Load()
@@ -26,9 +26,9 @@ METHOD New() CLASS EntryModel
 
 RETU SELF
 
-//	by Wilson
+//	-----------------------------------------------
 
-METHOD search( cSearch ) CLASS EntryModel
+METHOD Search( cSearch ) CLASS EntryModel
 
 	LOCAL hData 	:= {=>}
 	LOCAL hRows 	:= {}
@@ -37,86 +37,90 @@ METHOD search( cSearch ) CLASS EntryModel
    
 	cSearch = lower( alltrim( cSearch ) )
 
-	select ( ::cAlias )
 	( ::cAlias )->( dbgotop() )
-	locate for ( hb_WildMatch( "*"+cSearch+ "*", lower( ( ::cAlias )->titulo ) )  .or. ;
-	             hb_WildMatch( "*"+cSearch+ "*", lower( ( ::cAlias )->texto  ) ) ) ;
-			     .and. !( ::cAlias )->( eof() ) 
+	
+	locate for ( hb_WildMatch( "*" + cSearch + "*", lower( ( ::cAlias )->titulo ) )  .or. ;
+	              hb_WildMatch( "*" + cSearch + "*", lower( ( ::cAlias )->texto  ) ) ) .and. ;
+				  !( ::cAlias )->( eof() ) 
+				  
+	hData[ 'first' ] 	:= (::cAlias)->( OrdKeyNo() )				
+	hData[ 'last']		:= (::cAlias)->( OrdKeyNo() )			  
 
 	while ( ::cAlias )->( found() )
 
-		nRecno := (::cAlias)->( Recno() )
+		nRecno 			:= (::cAlias)->( Recno() )
+		hData[ 'last']	:= (::cAlias)->( OrdKeyNo() )
 					
 		Aadd( hRows, ::Load( nRecno ) )				
 	
 		nCount++						
-		select ( ::cAlias )
+		
 		continue
 	end		
-
-	hData[ 'recno' ] := nRecno
+	
 	hData[ 'rows'  ] := hRows
 
 RETU hData
 
-//	by Wilson
+//	-----------------------------------------------
 
-METHOD Rows( nId, nRows ) CLASS EntryModel
+METHOD Rows( nFirst, nLast, lAvPage ) CLASS EntryModel
 
 	LOCAL hData 	:= {=>}
 	LOCAL hRows 	:= {}
 	LOCAL nCount 	:= 0
 	LOCAL nRecno
 
-	DEFAULT nId 		 TO 0
-	DEFAULT nRows		 TO 5
+	DEFAULT nFirst		TO 0
+	DEFAULT nLast	 	TO 0
+	DEFAULT lAvPage	TO .T.
 
-	IF nId == 0
+	IF nFirst == 0	 
+	
 		(::cAlias)->( DbGoTop() )
-	ELSEIF nId == ::nRegGrande	
-		(::cAlias)->( DbGoBottom() )
-		(::cAlias)->( DbSkip( -nRows ) )
-		if (::cAlias)->( bof() )
-			(::cAlias)->( DbGotop() )
-		else
-			(::cAlias)->( dbskip() )	
-		end 	
+		
 	ELSE
 	
+		IF lAvPage			
 
-		if nRows < 0
-			(::cAlias)->( DbGoto( nId ) )
-			(::cAlias)->( DbSkip( nRows ) )
-			if (::cAlias)->( bof() )
-				(::cAlias)->( dbgotop() )
-			else
-				( ::cAlias )->( dbskip( -1 ) )	
-			end 
-			nRows = abs( nRows )	
-		else
-	
-			(::cAlias)->( DbGoto( nId ) )
-			(::cAlias)->( DbSkip() )
-		end 	
+			(::cAlias)->( OrdKeyGoto( ++nLast ) )
+			
+			IF (::cAlias)->( EOF() )
+				(::cAlias)->( DbGoBottom() )				
+			ENDIF			
+		
+		ELSE
+
+			(::cAlias)->( OrdKeyGoto( nFirst ) )			
+			(::cAlias)->( DbSkip( -MAXROWS ) )
+			
+			IF (::cAlias)->( BOF() )
+				(::cAlias)->( DbGoTop() )				
+			ENDIF
+			
+		ENDIF		
+		
 	ENDIF
 	
-		WHILE nCount < nRows .AND. (::cAlias)->( !Eof() )
-		
-			nRecno := (::cAlias)->( Recno() )
+	hData[ 'first' ] 	:= (::cAlias)->( OrdKeyNo() )				
+	hData[ 'last'] 		:= (::cAlias)->( OrdKeyNo() )	
+	
+	WHILE nCount < MAXROWS .AND. (::cAlias)->( !Eof() )
+	
+		nRecno 			:= (::cAlias)->( Recno() )
+		hData[ 'last'] 	:= (::cAlias)->( OrdKeyNo() )	
 
-			Aadd( hRows, ::Load( nRecno ) )
-		
-			nCount++						
-		
-			(::cAlias)->( DbSkip(1) )
-		END	
-		
+		Aadd( hRows, ::Load( nRecno ) )
 	
+		nCount++						
 	
-	hData[ 'recno' ] := nRecno
-	hData[ 'rows'  ] := hRows
+		(::cAlias)->( DbSkip() )
+	END				
+	
+	hData[ 'rows'] := hRows
 
 RETU hData
+
 
 //	-----------------------------------------------
 
